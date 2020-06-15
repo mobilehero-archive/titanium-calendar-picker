@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/calendar-picker",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Turbo widget that allows you to pick dates from a calendar with Axway Titanium.",
 	"main": "index.js",
 	"scripts": {
