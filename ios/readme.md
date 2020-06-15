@@ -1,1 +1,0 @@
-This is where your iOS module goes.  No sub-directories for versions/etc

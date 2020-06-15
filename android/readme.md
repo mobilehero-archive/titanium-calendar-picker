@@ -1,1 +1,0 @@
-This is where your Android module goes.  No sub-directories for versions/etc

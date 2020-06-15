@@ -1,0 +1,55 @@
+<alloy>
+	<script>
+		const goNext = () => {
+			// DEBUG: $.monthScroll.currentPage
+			console.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
+			$.monthScroll.moveNext();
+		}
+		const goPrevious = () => {
+			debugger;
+			// DEBUG: $.monthScroll.currentPage
+			console.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
+			$.monthScroll.movePrevious();
+		}
+	</script>
+	<vertical id="main">
+
+		<absolute height="5" />
+
+		<absolute id="header">
+
+			<label id="monthName" textAlign="center" fontFamily="SFProDisplay-Black" fontSize="20" />
+
+			<horizontal id="previous_button" left="15" width="size" onClick="goPrevious">
+				<label id="next" textAlign="center" fontFamily="SFProDisplay-Regular" fontSize="16" />
+				<icon type="solid" name="arrow-circle-left" size="25" />
+				<label id="previous" left="10" textAlign="center" fontFamily="SFProDisplay-Regular" fontSize="16"  />
+			</horizontal>
+
+			<horizontal id="next_button" right="15" width="size" onClick="goNext">
+				<label id="next" textAlign="center" fontFamily="SFProDisplay-Regular" fontSize="16" />
+				<icon id="next-arrow" type="solid" name="arrow-circle-right" left="10" size="25" />
+			</horizontal>
+
+		</absolute>
+
+		<absolute height="5" />
+
+		<vertical id="calendar" height="size" width="size">
+			<absolute id="dayLabels" height="30" width="fill">
+				<horizontal id="dayLabelsRow" height="fill" width="size" />
+			</absolute>
+			<scrollable-view id="monthScroll" height="size" width="fill" scrollingEnabled="true" />
+		</vertical>
+
+
+		<absolute height="5" />
+
+		<vertical id="footer" debugColor="yellow">
+			<label text="$.args.footer" />
+		</vertical>
+
+		<absolute height="5" />
+
+	</absolute>
+</alloy>
