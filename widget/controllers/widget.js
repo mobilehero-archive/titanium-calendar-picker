@@ -1,9 +1,9 @@
 const moment = require('moment');
 
 _.defaults($.args, {
-	day:                       moment().date(),
-	month:                     moment().month(),
-	year:                      moment().year(),
+	// day:                       moment().date(),
+	// month:                     moment().month(),
+	// year:                      moment().year(),
 	selectedDates:             [],
 	blockedDates:              [],
 	footer:                    '',
@@ -15,7 +15,7 @@ _.defaults($.args, {
 	activePinColor:            'orange',
 	inactivePinColor:          'transparent',
 	unselectedBackgroundColor: '#000000',
-	selectedBackgroundColor:   '318bdd',
+	selectedBackgroundColor:   '#318bdd',
 	inactiveBackgroundColor:   'darkgray',
 	inactiveTextColor:         'gray',
 	blockedBackgroundColor:    'red',
