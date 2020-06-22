@@ -1,29 +1,74 @@
 <alloy>
 	<script>
 		const goNext = () => {
-			// DEBUG: $.monthScroll.currentPage
-			console.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
+			turbo.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
 			$.monthScroll.moveNext();
 		}
 		const goPrevious = () => {
-			debugger;
-			// DEBUG: $.monthScroll.currentPage
-			console.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
+			turbo.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
 			$.monthScroll.movePrevious();
 		}
+
+		const moment = require( 'moment' );
+		const tinycolor = require( '@mobile/tinycolor2' );
+
+		_.defaults( $.args, {
+			// day:                       moment().date(),
+			// month:                     moment().month(),
+			// year:                      moment().year(),
+			selectedDates: [],
+			blockedDates: [],
+			footer: '',
+			dateFormat: 'YYYYMMDD',
+			backgroundColor: 'transparent',
+			todayBorderColor: 'yellow',
+			activePinColor: 'orange',
+			inactivePinColor: 'transparent',
+
+			unselectedBorderColor: '#fafafa',
+			unselectedBackgroundColor: '#e3e4e2',
+			// unselectedTextColor:       '#1b1b1b',
+
+			selectedBackgroundColor: '#318bdd',
+			selectedBorderColor: '#1b1b1b',
+			// selectedTextColor:       'white',
+
+			inactiveBackgroundColor: '#e3e4e2',
+			// inactiveBorderColor:     '#e3e4e2',
+			// inactiveTextColor:       'white',
+
+			blockedBackgroundColor: '#d22630',
+			// blockedBorderColor:     '#d22630',
+			// blockedTextColor:       '#fafafa',
+
+			headerBackgroundColor: '#fafafa',
+
+		} );
+
+		_.defaults( $.args, {
+
+			blockedBorderColor: $.args.blockedBackgroundColor,
+			inactiveBorderColor: $.args.inactiveBackgroundColor,
+
+		} );
+
+		$.args.inactiveTextColor = $.args.inactiveTextColor || tinycolor.mostReadable( $.args.inactiveBackgroundColor, [ '#737373', '#bfbfbf' ], { includeFallbackColors: true } ).toHexString();
+		$.args.selectedTextColor = $.args.selectedTextColor || tinycolor.mostReadable( $.args.selectedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true } ).toHexString();
+		$.args.unselectedTextColor = $.args.unselectedTextColor || tinycolor.mostReadable( $.args.unselectedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true } ).toHexString();
+		$.args.blockedTextColor = $.args.blockedTextColor || tinycolor.mostReadable( $.args.blockedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true } ).toHexString();
+
 	</script>
-	<vertical id="main">
 
-		<absolute height="5" />
+	<vertical id="main" borderColor="black" borderWidth="2">
 
-		<absolute id="header" backgroundColor="$.args.headerBackgroundColor">
+		<absolute id="header" backgroundColor="$.args.headerBackgroundColor" height="50">
 
 			<label id="monthName" textAlign="center" fontFamily="SFProDisplay-Black" fontSize="20" />
 
 			<horizontal id="previous_button" left="15" width="size" onClick="goPrevious">
 				<label id="next" textAlign="center" fontFamily="SFProDisplay-Regular" fontSize="16" />
 				<icon type="solid" name="arrow-circle-left" size="25" />
-				<label id="previous" left="10" textAlign="center" fontFamily="SFProDisplay-Regular" fontSize="16"  />
+				<label id="previous" left="10" textAlign="center" fontFamily="SFProDisplay-Regular" fontSize="16" />
 			</horizontal>
 
 			<horizontal id="next_button" right="15" width="size" onClick="goNext">
@@ -33,23 +78,35 @@
 
 		</absolute>
 
-		<absolute height="5" />
+		<vertical id="calendar" height="size" width="size" border="#1b1b1b" borderWidth="1">
 
-		<vertical id="calendar" height="size" width="size">
-			<absolute id="dayLabels" height="30" width="fill">
+			<absolute backgroundColor="#1b1b1b" height="2" width="fill" />
+
+			<absolute id="dayLabels" height="30" width="fill" backgroundColor="#4a4f54">
 				<horizontal id="dayLabelsRow" height="fill" width="size" />
 			</absolute>
+			<absolute backgroundColor="#1b1b1b" height="2" width="fill" />
 			<scrollable-view id="monthScroll" height="size" width="fill" scrollingEnabled="true" />
 		</vertical>
 
+		<absolute backgroundColor="#1b1b1b" height="2" width="fill" />
 
-		<absolute height="5" />
+		<absolute id="footer" debugColor="yellow" backgroundColor="#4a4f54">
+			<!-- <label text="$.args.footer" /> -->
+			<absolute height="40">
 
-		<vertical id="footer" debugColor="yellow">
-			<label text="$.args.footer" />
-		</vertical>
+				<horizontal width="size">
 
-		<absolute height="5" />
+					<icon type="solid" name="times-circle" color="$.args.blockedTextColor" backgroundColor="$.args.blockedBackgroundColor" borderWidth="2" borderColor="$.args.blockedBorderColor" size="13" height="22" width="22" left="10" />
+					<label text="Blocked" fontSize="16" fontFamily="SFProDisplay-Medium" color="#fafafa" height="22" left="5" />
+					<icon type="solid" name="check-circle" color="$.args.selectedTextColor" backgroundColor="$.args.selectedBackgroundColor" borderWidth="2" borderColor="$.args.selectedBorderColor" size="13" height="22" width="22" left="10" />
+					<label text="Selected" fontSize="16" fontFamily="SFProDisplay-Medium" color="#fafafa" height="22" left="5" />
+					<label text="" color="$.args.unselectedTextColor" backgroundColor="$.args.unselectedBackgroundColor" borderWidth="2" borderColor="$.args.unselectedBorderColor" height="22" width="22" left="10" />
+					<label text="Available" fontSize="16" fontFamily="SFProDisplay-Medium" color="#fafafa" height="22" left="5" />
 
-	</absolute>
+				</horizontal>
+			</absolute>
+		</absolute>
+
+	</vertical>
 </alloy>

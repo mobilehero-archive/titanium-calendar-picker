@@ -1,44 +1,3 @@
-const moment = require('moment');
-const tinycolor = require('@mobile/tinycolor2');
-
-_.defaults($.args, {
-	// day:                       moment().date(),
-	// month:                     moment().month(),
-	// year:                      moment().year(),
-	selectedDates:    [],
-	blockedDates:     [],
-	footer:           '',
-	dateFormat:       'YYYYMMDD',
-	backgroundColor:  'transparent',
-	todayBorderColor: 'yellow',
-	activePinColor:   'orange',
-	inactivePinColor: 'transparent',
-
-	unselectedBorderColor:     '#fafafa',
-	unselectedBackgroundColor: '#e3e4e2',
-	// unselectedTextColor:       '#1b1b1b',
-
-	selectedBackgroundColor: '#318bdd',
-	selectedBorderColor:     '#1b1b1b',
-	// selectedTextColor:       'white',
-
-	inactiveBackgroundColor: '#e3e4e2',
-	inactiveBorderColor:     '#e3e4e2',
-	// inactiveTextColor:       'white',
-
-	blockedBackgroundColor: '#d22630',
-	blockedBorderColor:     '#d22630',
-	// blockedTextColor:       '#fafafa',
-
-	headerBackgroundColor: '#fafafa',
-
-});
-
-
-$.args.inactiveTextColor = $.args.inactiveTextColor || tinycolor.mostReadable($.args.inactiveBackgroundColor, [ '#737373', '#bfbfbf' ], { includeFallbackColors: true }).toHexString();
-$.args.selectedTextColor = $.args.selectedTextColor || tinycolor.mostReadable($.args.selectedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true }).toHexString();
-$.args.unselectedTextColor = $.args.unselectedTextColor || tinycolor.mostReadable($.args.unselectedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true }).toHexString();
-$.args.blockedTextColor = $.args.blockedTextColor || tinycolor.mostReadable($.args.blockedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true }).toHexString();
 
 const previously_selected_dates = _.clone($.args.selectedDates);
 const selected_dates = _.clone(previously_selected_dates);
@@ -71,8 +30,9 @@ function getDayLabels() {
 		});
 		view.add(
 			turbo.createLabel({
-				left: 5,
-				text: day,
+				left:  5,
+				text:  day,
+				color: '#fafafa',
 			}),
 		);
 
@@ -86,13 +46,13 @@ function createDayView(number, year_day) {
 	const day_view = turbo.createView({
 		width:           Math.floor($.calendar.rect.width / 7),
 		backgroundColor: $.args.blockedBackgroundColor,
-		borderColor:     $.args.blockedBackgroundColor,
+		borderColor:     $.args.blockedBorderColor,
 		opacity:         1,
 		height:          Ti.UI.FILL,
 		layout:          'composite',
 		isBlocked:       isBlocked,
 		year_day,
-		borderWidth:     2,
+		borderWidth:     1,
 	});
 
 	day_view.add(
@@ -128,6 +88,7 @@ function createDayView(number, year_day) {
 				color:        $.args.blockedTextColor,
 				visible:      true,
 				touchEnabled: false,
+				bottom:       12,
 			}),
 		);
 	} else {
@@ -139,6 +100,7 @@ function createDayView(number, year_day) {
 				color:        $.args.selectedTextColor,
 				visible:      false,
 				touchEnabled: false,
+				bottom:       12,
 			}),
 		);
 	}
