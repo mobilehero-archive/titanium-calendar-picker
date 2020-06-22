@@ -1,26 +1,45 @@
 const moment = require('moment');
+const tinycolor = require('@mobile/tinycolor2');
 
 _.defaults($.args, {
 	// day:                       moment().date(),
 	// month:                     moment().month(),
 	// year:                      moment().year(),
-	selectedDates:             [],
-	blockedDates:              [],
-	footer:                    '',
-	dateFormat:                'YYYYMMDD',
-	backgroundColor:           'transparent',
-	todayColor:                'yellow',
-	dateTextColor:             '#fff',
-	todayTextColor:            '#000',
-	activePinColor:            'orange',
-	inactivePinColor:          'transparent',
-	unselectedBackgroundColor: '#000000',
-	selectedBackgroundColor:   '#318bdd',
-	inactiveBackgroundColor:   'darkgray',
-	inactiveTextColor:         'gray',
-	blockedBackgroundColor:    'red',
-	blockedIconColor:          'white',
+	selectedDates:    [],
+	blockedDates:     [],
+	footer:           '',
+	dateFormat:       'YYYYMMDD',
+	backgroundColor:  'transparent',
+	todayBorderColor: 'yellow',
+	activePinColor:   'orange',
+	inactivePinColor: 'transparent',
+
+	unselectedBorderColor:     '#fafafa',
+	unselectedBackgroundColor: '#e3e4e2',
+	// unselectedTextColor:       '#1b1b1b',
+
+	selectedBackgroundColor: '#318bdd',
+	selectedBorderColor:     '#1b1b1b',
+	// selectedTextColor:       'white',
+
+	inactiveBackgroundColor: '#e3e4e2',
+	inactiveBorderColor:     '#e3e4e2',
+	// inactiveTextColor:       'white',
+
+	blockedBackgroundColor: '#d22630',
+	blockedBorderColor:     '#d22630',
+	// blockedTextColor:       '#fafafa',
+
+	headerBackgroundColor: '#fafafa',
+
 });
+
+
+$.args.inactiveTextColor = $.args.inactiveTextColor || tinycolor.mostReadable($.args.inactiveBackgroundColor, [ '#737373', '#bfbfbf' ], { includeFallbackColors: true }).toHexString();
+$.args.selectedTextColor = $.args.selectedTextColor || tinycolor.mostReadable($.args.selectedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true }).toHexString();
+$.args.unselectedTextColor = $.args.unselectedTextColor || tinycolor.mostReadable($.args.unselectedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true }).toHexString();
+$.args.blockedTextColor = $.args.blockedTextColor || tinycolor.mostReadable($.args.blockedBackgroundColor, [ turbo.colors.black, turbo.colors.white ], { includeFallbackColors: true }).toHexString();
+
 const previously_selected_dates = _.clone($.args.selectedDates);
 const selected_dates = _.clone(previously_selected_dates);
 const blocked_dates = _.clone($.args.blockedDates);
@@ -47,9 +66,8 @@ function getDayLabels() {
 	const days = moment.weekdaysShort(true);
 	_.each(days, day => {
 		const view = turbo.createView({
-			height:          Ti.UI.Fill,
-			backgroundColor: '#3000',
-			width:           Math.floor($.calendar.rect.width / 7),
+			height: Ti.UI.Fill,
+			width:  Math.floor($.calendar.rect.width / 7),
 		});
 		view.add(
 			turbo.createLabel({
@@ -68,16 +86,18 @@ function createDayView(number, year_day) {
 	const day_view = turbo.createView({
 		width:           Math.floor($.calendar.rect.width / 7),
 		backgroundColor: $.args.blockedBackgroundColor,
+		borderColor:     $.args.blockedBackgroundColor,
 		opacity:         1,
 		height:          Ti.UI.FILL,
 		layout:          'composite',
 		isBlocked:       isBlocked,
 		year_day,
+		borderWidth:     2,
 	});
 
 	day_view.add(
 		turbo.createLabel({
-			color:        '#fff',
+			color:        $.args.blockedTextColor,
 			text:         number,
 			touchEnabled: false,
 			top:          3,
@@ -104,8 +124,8 @@ function createDayView(number, year_day) {
 			turbo.createIcon({
 				type:         'solid',
 				name:         'times-circle',
-				size:         20,
-				color:        $.args.blockedIconColor,
+				size:         16,
+				color:        $.args.blockedTextColor,
 				visible:      true,
 				touchEnabled: false,
 			}),
@@ -115,8 +135,8 @@ function createDayView(number, year_day) {
 			turbo.createIcon({
 				type:         'solid',
 				name:         'check-circle',
-				size:         18,
-				color:        'green',
+				size:         16,
+				color:        $.args.selectedTextColor,
 				visible:      false,
 				touchEnabled: false,
 			}),
@@ -149,18 +169,23 @@ const updateDayView = view => {
 
 	if (!view.isBlocked && !view.isActive) {
 		view.backgroundColor = $.args.inactiveBackgroundColor;
+		view.borderColor = $.args.inactiveBackgroundColor;
 		view.children[0].color = $.args.inactiveTextColor;
 	} else if (view.isSelected) {
 		view.backgroundColor = $.args.selectedBackgroundColor;
+		view.borderColor = $.args.selectedBorderColor;
+		view.children[0].color = $.args.selectedTextColor;
 		view.children[2].visible = true;
 	} else if (!view.isBlocked) {
 		view.backgroundColor = $.args.unselectedBackgroundColor;
+		view.borderColor = $.args.unselectedBorderColor;
+		view.children[0].color = $.args.unselectedTextColor;
 		view.children[2].visible = false;
 	}
 
 	if (view.isToday) {
-		view.borderColor = $.args.todayColor;
-		view.borderWidth = 3;
+		view.borderColor = $.args.todayBorderColor;
+		view.borderWidth = 4;
 	}
 };
 

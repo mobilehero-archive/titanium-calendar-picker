@@ -16,7 +16,7 @@
 
 		<absolute height="5" />
 
-		<absolute id="header">
+		<absolute id="header" backgroundColor="$.args.headerBackgroundColor">
 
 			<label id="monthName" textAlign="center" fontFamily="SFProDisplay-Black" fontSize="20" />
 
