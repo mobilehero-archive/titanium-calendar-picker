@@ -1,11 +1,11 @@
 <alloy>
 	<script>
 		const goNext = () => {
-			turbo.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
+			logger.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
 			$.monthScroll.moveNext();
 		}
 		const goPrevious = () => {
-			turbo.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
+			logger.debug( `🦠  $.monthScroll.currentPage: ${JSON.stringify( $.monthScroll.currentPage, null, 2 )}` );
 			$.monthScroll.movePrevious();
 		}
 

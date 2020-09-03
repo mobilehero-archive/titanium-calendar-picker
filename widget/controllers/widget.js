@@ -121,9 +121,9 @@ const toggleSelected = view => {
 
 		$.trigger('changed');
 
-		turbo.debug(`🦠  selected_dates: ${JSON.stringify(selected_dates, null, 2)}`);
-		turbo.debug(`🦠  $.getRemovedDates(): ${JSON.stringify($.getRemovedDates(), null, 2)}`);
-		turbo.debug(`🦠  $.getAddedDates(): ${JSON.stringify($.getAddedDates(), null, 2)}`);
+		logger.debug(`🦠  selected_dates: ${JSON.stringify(selected_dates, null, 2)}`);
+		logger.debug(`🦠  $.getRemovedDates(): ${JSON.stringify($.getRemovedDates(), null, 2)}`);
+		logger.debug(`🦠  $.getAddedDates(): ${JSON.stringify($.getAddedDates(), null, 2)}`);
 	}
 };
 
@@ -166,10 +166,10 @@ function getMonthView(calendar_month) {
 }
 
 function updateMonthView(calendar_index) {
-	turbo.trace(`📌  you are here → calendar-picker.updateMonthView(${calendar_index})`);
+	logger.track(`📌  you are here → calendar-picker.updateMonthView(${calendar_index})`);
 
 	if (calendar_index < 0 || calendar_index >= calendar.length) {
-		turbo.trace(`📌  you are here → calendar_index is out of range: ${calendar_index}`);
+		logger.track(`📌  you are here → calendar_index is out of range: ${calendar_index}`);
 		return;
 	}
 
@@ -208,7 +208,7 @@ function updateMonthView(calendar_index) {
 
 		current_view.isActive
 			&& current_view.addEventListener('click', e => {
-				turbo.trace('📌  you are here → calendar-picker.onClick');
+				logger.track('📌  you are here → calendar-picker.onClick');
 				toggleSelected(e.source);
 			});
 
@@ -253,7 +253,7 @@ function buildCalendar() {
 }
 
 function setCurrentMonth(calendar_index) {
-	turbo.trace(`📌  you are here → setCurrentMonth(${calendar_index})`);
+	logger.track(`📌  you are here → setCurrentMonth(${calendar_index})`);
 
 	$.monthScroll.currentPage = calendar_index;
 	$.monthName.text = calendar[calendar_index].title;
@@ -276,10 +276,10 @@ $.monthScroll.addEventListener('scroll', e => {
 		return;
 	}
 	// const old_page = current_page;
-	// turbo.debug(`🦠  old_page: ${JSON.stringify(old_page, null, 2)}`);
+	// logger.debug(`🦠  old_page: ${JSON.stringify(old_page, null, 2)}`);
 	current_page = e.currentPage;
 
-	// turbo.debug(`🦠  current_page: ${JSON.stringify(current_page, null, 2)}`);
+	// logger.debug(`🦠  current_page: ${JSON.stringify(current_page, null, 2)}`);
 
 	setCurrentMonth(current_page);
 });

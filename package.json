@@ -47,7 +47,7 @@
 		"platforms": "ios,android"
 	},
 	"devDependencies": {
-		"@titanium/eslint-config": "0.0.15",
+		"@titanium/eslint-config": "0.0.17",
 		"eslint": "^7.8.1",
 		"fs-extra": "^9.0.1",
 		"lodash": "^4.17.20"
