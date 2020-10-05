@@ -1,4 +1,7 @@
 
+const logger = require('@geek/logger').createLogger('@titanium-calendar-picker', { meta: { filename: __filename } });
+const moment = require('moment');
+
 const previously_selected_dates = _.clone($.args.selectedDates);
 const selected_dates = _.clone(previously_selected_dates);
 const blocked_dates = _.clone($.args.blockedDates);
