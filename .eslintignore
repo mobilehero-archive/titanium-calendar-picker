@@ -1,2 +1,9 @@
 node_modules
-/plugins
+build
+Resources
+*.jsonc
+*.json
+.internal
+docs
+plugins
+dist
