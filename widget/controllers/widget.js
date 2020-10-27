@@ -1,5 +1,5 @@
 
-const logger = require('@geek/logger').createLogger('@titanium-calendar-picker', { meta: { filename: __filename } });
+const logger = require(`@geek/logger`).createLogger(`@titanium-calendar-picker`, { meta: { filename: __filename } });
 // const moment = require('moment');
 
 const previously_selected_dates = _.clone($.args.selectedDates);
@@ -35,7 +35,7 @@ function getDayLabels() {
 			turbo.createLabel({
 				left:  5,
 				text:  day,
-				color: '#fafafa',
+				color: `#fafafa`,
 			}),
 		);
 
@@ -52,8 +52,8 @@ function createDayView(number, year_day) {
 		borderColor:     $.args.blockedBorderColor,
 		opacity:         1,
 		height:          Ti.UI.FILL,
-		layout:          'composite',
-		isBlocked:       isBlocked,
+		layout:          `composite`,
+		isBlocked,
 		year_day,
 		borderWidth:     1,
 	});
@@ -65,7 +65,7 @@ function createDayView(number, year_day) {
 			touchEnabled: false,
 			top:          3,
 			left:         5,
-			fontFamily:   'SFProDisplay-Bold',
+			fontFamily:   `SFProDisplay-Bold`,
 			fontSize:     13,
 		}),
 	);
@@ -78,15 +78,15 @@ function createDayView(number, year_day) {
 			top:             23,
 			left:            5,
 			touchEnabled:    false,
-			backgroundColor: 'transparent',
+			backgroundColor: `transparent`,
 		}),
 	);
 
 	if (isBlocked) {
 		day_view.add(
 			turbo.createIcon({
-				type:         'solid',
-				name:         'times-circle',
+				type:         `solid`,
+				name:         `times-circle`,
 				size:         16,
 				color:        $.args.blockedTextColor,
 				visible:      true,
@@ -97,8 +97,8 @@ function createDayView(number, year_day) {
 	} else {
 		day_view.add(
 			turbo.createIcon({
-				type:         'solid',
-				name:         'check-circle',
+				type:         `solid`,
+				name:         `check-circle`,
 				size:         16,
 				color:        $.args.selectedTextColor,
 				visible:      false,
@@ -122,7 +122,7 @@ const toggleSelected = view => {
 		view.isSelected = !view.isSelected;
 		updateDayView(view);
 
-		$.trigger('changed');
+		$.trigger(`changed`);
 
 		logger.debug(`🦠  selected_dates: ${JSON.stringify(selected_dates, null, 2)}`);
 		logger.debug(`🦠  $.getRemovedDates(): ${JSON.stringify($.getRemovedDates(), null, 2)}`);
@@ -162,7 +162,7 @@ function getMonthView(calendar_month) {
 		ready:           false,
 		width:           Ti.UI.FILL,
 		height:          Ti.UI.SIZE,
-		layout:          'vertical',
+		layout:          `vertical`,
 	});
 
 	return month_view;
@@ -196,7 +196,7 @@ function updateMonthView(calendar_index) {
 
 	// Add day containers
 	for (let d = 0; d < num_rows * num_cols; d++) {
-		const current_day = moment(calendar_month.first_date.clone()).add(d, 'days');
+		const current_day = moment(calendar_month.first_date.clone()).add(d, `days`);
 		const current_year_day = _.toInteger(current_day.format($.args.dateFormat));
 		const current_view = createDayView(current_day.date(), current_year_day);
 		// current_view.year_day = current_year_day;
@@ -205,13 +205,13 @@ function updateMonthView(calendar_index) {
 		current_view.isSelected = _.includes(selected_dates, current_year_day);
 		current_view.isActive = (current_view.isSelected || !current_view.isBlocked)
 			&& current_day.month() === month_view.month
-			&& current_day.isBetween($.start_moment, $.end_moment, undefined, '[]');
-		current_view.isToday = current_day.isSame(moment(), 'day');
+			&& current_day.isBetween($.start_moment, $.end_moment, undefined, `[]`);
+		current_view.isToday = current_day.isSame(moment(), `day`);
 		updateDayView(current_view);
 
 		current_view.isActive
-			&& current_view.addEventListener('click', e => {
-				logger.track('📌  you are here → calendar-picker.onClick');
+			&& current_view.addEventListener(`click`, e => {
+				logger.track(`📌  you are here → calendar-picker.onClick`);
 				toggleSelected(e.source);
 			});
 
@@ -229,7 +229,7 @@ function updateMonthView(calendar_index) {
 const calendar = [];
 
 function buildCalendar() {
-	$.main.removeEventListener('postlayout', buildCalendar);
+	$.main.removeEventListener(`postlayout`, buildCalendar);
 
 	// Add top labels
 	getDayLabels();
@@ -238,18 +238,18 @@ function buildCalendar() {
 
 	while (building) {
 		const calendar_month = {
-			title:       current_moment.format('MMMM YYYY'),
-			short_title: current_moment.format('MMM[\n]YYYY'),
-			start_date:  current_moment.clone().startOf('month').startOf('week'),
-			first_date:  current_moment.clone().startOf('month').startOf('week'),
+			title:       current_moment.format(`MMMM YYYY`),
+			short_title: current_moment.format(`MMM[\n]YYYY`),
+			start_date:  current_moment.clone().startOf(`month`).startOf(`week`),
+			first_date:  current_moment.clone().startOf(`month`).startOf(`week`),
 			month:       current_moment.month(),
 			year:        current_moment.year(),
 		};
 
 		$.monthScroll.addView(getMonthView(calendar_month));
 		calendar.push(calendar_month);
-		current_moment.add(1, 'M');
-		building = current_moment.isSameOrBefore($.end_moment.clone().endOf('month'));
+		current_moment.add(1, `M`);
+		building = current_moment.isSameOrBefore($.end_moment.clone().endOf(`month`));
 	}
 
 	setCurrentMonth(0);
@@ -262,19 +262,19 @@ function setCurrentMonth(calendar_index) {
 	$.monthName.text = calendar[calendar_index].title;
 	updateMonthView(calendar_index);
 
-	$.previous.text = calendar_index > 0 ? calendar[calendar_index - 1].short_title : '';
+	$.previous.text = calendar_index > 0 ? calendar[calendar_index - 1].short_title : ``;
 	$.previous_button.visible = calendar_index > 0;
 
-	$.next.text = calendar_index < calendar.length - 1 ? calendar[calendar_index + 1].short_title : '';
+	$.next.text = calendar_index < calendar.length - 1 ? calendar[calendar_index + 1].short_title : ``;
 	$.next_button.visible = calendar_index < calendar.length - 1;
 
 	updateMonthView(calendar_index + 1);
 	updateMonthView(calendar_index - 1);
 }
 
-$.main.addEventListener('postlayout', buildCalendar);
+$.main.addEventListener(`postlayout`, buildCalendar);
 
-$.monthScroll.addEventListener('scroll', e => {
+$.monthScroll.addEventListener(`scroll`, e => {
 	if (e.currentPage === current_page) {
 		return;
 	}
