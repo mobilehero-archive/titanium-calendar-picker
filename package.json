@@ -1,12 +1,13 @@
 {
 	"name": "@titanium/calendar-picker",
-	"version": "1.0.0",
-	"description": "Turbo widget that allows you to pick dates from a calendar with Axway Titanium.",
+	"version": "1.0.2",
+	"description": "Axway Amplify module for calendar dates times for Appcelerator Titanium Mobile",
 	"main": "index.js",
 	"scripts": {
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
 		"prep": "npm install --ignore-scripts && npm run list",
-		"prepublishOnly": "git pull && bump release",
+		"prepublishOnly": "git pull && npm test && bump insane",
+		"prepublishOnly2": "git pull && npm test && npm audit fix && bump insane",
 		"test": "npm run prep",
 		"lint": "eslint . --fix"
 	},
@@ -26,7 +27,7 @@
 	"bugs": {
 		"url": "https://github.com/brentonhouse/titanium-calendar-picker/issues"
 	},
-	"homepage": "https://github.com/brentonhouse/titanium-calendar-picker#readme",
+	"homepage": "https://brenton.house/saying-goodbye-to-axway-amplify-titanium-31a44f3671de",
 	"keywords": [
 		"titanium",
 		"mobile",
@@ -39,6 +40,15 @@
 		"iphone",
 		"ipad",
 		"titanium-widget",
+		"plugin",
+		"amplify",
+		"api-builder",
+		"appcelerator-titanium",
+		"titanium-sdk",
+		"titanium-mobile",
+		"titanium-module",
+		"axway-sdk",
+		"axway-amplify",
 		"brenton-house"
 	],
 	"titanium": {
