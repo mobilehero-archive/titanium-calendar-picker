@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/calendar-picker",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Axway Amplify module for calendar dates times for Appcelerator Titanium Mobile",
 	"main": "index.js",
 	"scripts": {
@@ -58,12 +58,12 @@
 		"platforms": "ios,android"
 	},
 	"devDependencies": {
-		"@titanium/eslint-config": "1.0.1",
-		"eslint": "^7.18.0",
+		"@titanium/eslint-config": "1.0.7",
+		"eslint": "^7.32.0",
 		"eslint-plugin-import": "^2.22.1",
-		"eslint-plugin-jsdoc": "^31.0.8",
-		"eslint-plugin-promise": "^4.2.1",
-		"fs-extra": "^9.1.0",
+		"eslint-plugin-jsdoc": "^31.6.1",
+		"eslint-plugin-promise": "^4.3.1",
+		"fs-extra": "^10.0.0",
 		"lodash": "^4.17.21"
 	},
 	"dependencies": {}
