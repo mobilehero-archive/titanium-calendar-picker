@@ -1,13 +1,13 @@
 {
 	"name": "@titanium/calendar-picker",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Axway Amplify module for calendar dates times for Appcelerator Titanium Mobile",
 	"main": "index.js",
 	"scripts": {
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
 		"prep": "npm install --ignore-scripts && npm run list",
-		"prepublishOnly": "git pull && npm test && bump insane",
-		"prepublishOnly2": "git pull && npm test && npm audit fix && bump insane",
+		"prepublishOnly2": "git pull && npm test && bump insane",
+		"prepublishOnly": "git pull && npm test && npm audit fix && bump insane",
 		"test": "npm run prep",
 		"lint": "eslint . --fix"
 	},
