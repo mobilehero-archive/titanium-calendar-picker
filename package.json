@@ -1,15 +1,15 @@
 {
 	"name": "@titanium/calendar-picker",
-	"version": "1.0.6",
-	"description": "Axway Amplify module for calendar dates times for Appcelerator Titanium Mobile",
+	"version": "1.0.7",
+	"description": "⭐  Axway Amplify module for calendar dates times for Appcelerator Titanium SDK",
 	"main": "index.js",
 	"scripts": {
+		"lint": "eslint . --fix",
 		"list": "npm pack && tar -xvzf *.tgz && rm -rf package *.tgz",
 		"prep": "npm install --ignore-scripts && npm run list",
-		"prepublishOnly2": "git pull && npm test && bump insane",
-		"prepublishOnly": "git pull && npm test && npm audit fix && bump insane",
 		"test": "npm run prep",
-		"lint": "eslint . --fix"
+		"prepublishOnly": "git pull && npm test && bump insane",
+		"prepublishOnly2": "git pull && npm test && npm audit fix && bump insane"
 	},
 	"author": "Axway",
 	"maintainers": [
@@ -58,13 +58,28 @@
 		"platforms": "ios,android"
 	},
 	"devDependencies": {
-		"@titanium/eslint-config": "1.0.7",
-		"eslint": "^7.32.0",
-		"eslint-plugin-import": "^2.22.1",
-		"eslint-plugin-jsdoc": "^31.6.1",
-		"eslint-plugin-promise": "^4.3.1",
+		"@titanium/eslint-config": "1.0.8",
+		"eslint": "^8.6.0",
+		"eslint-plugin-import": "^2.25.4",
+		"eslint-plugin-jsdoc": "^37.5.1",
+		"eslint-plugin-promise": "^6.0.0",
 		"fs-extra": "^10.0.0",
 		"lodash": "^4.17.21"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"@geek/logger": "^1.0.18",
+		"@titanium/bluebird": "^3.7.8",
+		"@titanium/errors": "^1.0.5",
+		"@titanium/essentials": "^1.0.35",
+		"@titanium/events": "^1.0.18",
+		"@titanium/eventsource": "^1.0.3",
+		"@titanium/jwt": "^1.0.8",
+		"@titanium/module-copier": "^1.0.13",
+		"@titanium/please": "^1.0.16",
+		"@titanium/polyfill": "^1.0.15",
+		"@titanium/querystring": "^1.0.2",
+		"@titanium/tiapp-xml": "^1.0.11",
+		"@titanium/titanium": "^5.4.5",
+		"@titanium/turbo": "^2.2.22"
+	}
 }
