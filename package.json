@@ -1,6 +1,6 @@
 {
 	"name": "@titanium/calendar-picker",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"description": "⭐  Axway Amplify module for calendar dates times for Appcelerator Titanium SDK",
 	"main": "index.js",
 	"scripts": {
@@ -79,7 +79,7 @@
 		"@geek/spinner": "^1.0.0",
 		"@geek/tld": "^2.0.1-1",
 		"@titanium/appcelerator": "^6.0.4",
-		"@titanium/bluebird": "^3.7.8",
+		"@titanium/bluebird": "^3.7.9",
 		"@titanium/errors": "^1.0.5",
 		"@titanium/essentials": "^1.0.36",
 		"@titanium/events": "^1.0.18",
